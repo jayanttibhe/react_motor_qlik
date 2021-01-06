@@ -12,7 +12,7 @@ import AppMenu from './AppMenu';
 
 const SideBar = () => {
 	const classes = useStyles();
-
+	//test
 	return (
 		<div className={clsx('SideBar', classes.root)}>
 			<CssBaseline />
