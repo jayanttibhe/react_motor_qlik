@@ -28,10 +28,11 @@ const App = () => {
 			<Route exact path='/Page5'>
 				<Page5 />
 			</Route>
-			<Route path='*'>
+			{/* <Route path='*'>
 				<Error />
-			</Route>
+			</Route> */}
 		</Router>
+		// <AppMenuBar />
 	);
 };
 

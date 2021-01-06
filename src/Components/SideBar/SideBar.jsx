@@ -1,38 +1,76 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import AppMenu from './AppMenu';
+import HeaderBar from './HeaderBar';
 
-const SideBar = () => {
+export default function PersistentDrawerLeft() {
 	const classes = useStyles();
-	//test
-	return (
-		<div className={clsx('SideBar', classes.root)}>
-			<CssBaseline />
+	const theme = useTheme();
+	const [open, setOpen] = React.useState(false);
 
+	const handleDrawerOpen = () => {
+		setOpen(true);
+	};
+
+	const handleDrawerClose = () => {
+		setOpen(false);
+	};
+
+	return (
+		<div className={classes.root}>
+			<CssBaseline />
+			<HeaderBar open={open} handleDrawerOpen={handleDrawerOpen} />
 			<Drawer
-				variant='permanent'
+				className={classes.drawer}
+				variant='persistent'
+				anchor='left'
+				open={open}
 				classes={{
 					paper: classes.drawerPaper,
 				}}>
-				<Typography>I'm the Sidebar</Typography>
+				<div className={classes.drawerHeader}>
+					<Typography variant='h3'>HSBC</Typography>
+					<IconButton onClick={handleDrawerClose}>
+						{theme.direction === 'ltr' ? (
+							<ChevronLeftIcon />
+						) : (
+							<ChevronRightIcon />
+						)}
+					</IconButton>
+				</div>
+				{/* <Divider /> */}
 				<AppMenu />
 			</Drawer>
-			<main className={classes.content}>
-				<Container maxWidth='lg' className={classes.container}>
-					<Typography>I'm the content</Typography>
-				</Container>
+			<main
+				className={clsx(classes.content, {
+					[classes.contentShift]: open,
+				})}>
+				<div className={classes.drawerHeader} />
+				<Typography paragraph>
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima,
+					iure? Pariatur libero exercitationem consectetur numquam quo minus
+					facilis consequuntur fuga.
+				</Typography>
+				<Typography paragraph>
+					Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
+					ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
+					elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
+					sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
+				</Typography>
 			</main>
 		</div>
 	);
-};
+}
 
 const drawerWidth = 240;
 
@@ -40,24 +78,37 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 	},
-	drawerPaper: {
-		position: 'relative',
-		whiteSpace: 'nowrap',
+	drawer: {
 		width: drawerWidth,
-		paddingTop: theme.spacing(4),
-		paddingBottom: theme.spacing(4),
-		background: '#535454',
+		flexShrink: 0,
+	},
+	drawerPaper: {
+		width: drawerWidth,
+		background: '#343a40',
 		color: '#fff',
+	},
+	drawerHeader: {
+		display: 'flex',
+		alignItems: 'center',
+		padding: theme.spacing(0, 1),
+		// necessary for content to be below app bar
+		...theme.mixins.toolbar,
+		justifyContent: 'flex-end',
 	},
 	content: {
 		flexGrow: 1,
-		height: '100vh',
-		overflow: 'auto',
+		padding: theme.spacing(3),
+		transition: theme.transitions.create('margin', {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+		marginLeft: -drawerWidth,
 	},
-	container: {
-		paddingTop: theme.spacing(4),
-		paddingBottom: theme.spacing(4),
+	contentShift: {
+		transition: theme.transitions.create('margin', {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+		marginLeft: 0,
 	},
 }));
-
-export default SideBar;
