@@ -19,8 +19,23 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Tooltip from '@material-ui/core/Tooltip';
-
-export default function HeaderBar({ handleDrawerOpen, open }) {
+import { Paper } from '@material-ui/core';
+import {
+	Box,
+	useScreenSize,
+	CurrentSelections,
+	KPI,
+	Bar,
+	Button,
+	Search,
+	Line,
+	Area,
+} from '@motor-js/core';
+export default function HeaderBar({
+	handleDrawerOpen,
+	open,
+	handleThemeChange,
+}) {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -96,7 +111,7 @@ export default function HeaderBar({ handleDrawerOpen, open }) {
 				</IconButton>
 				<p>Profile</p>
 			</MenuItem>
-			<MenuItem>
+			<MenuItem onClick={handleThemeChange}>
 				<IconButton color='inherit'>
 					<Brightness4Icon />
 				</IconButton>
@@ -114,18 +129,20 @@ export default function HeaderBar({ handleDrawerOpen, open }) {
 				})}>
 				<Toolbar>
 					<IconButton
-						color='inherit'
+						// color='inherit'
 						aria-label='open drawer'
 						onClick={handleDrawerOpen}
 						edge='start'
 						className={clsx(classes.menuButton, open && classes.hide)}>
 						<MenuIcon />
 					</IconButton>
+
 					<Typography className={classes.title} variant='h6' noWrap>
 						HSBC KYC Dashboards
 					</Typography>
+
 					<div className={classes.grow} />
-					<div className={classes.search}>
+					{/* <div className={classes.search}>
 						<div className={classes.searchIcon}>
 							<SearchIcon />
 						</div>
@@ -137,14 +154,21 @@ export default function HeaderBar({ handleDrawerOpen, open }) {
 							}}
 							inputProps={{ 'aria-label': 'search' }}
 						/>
+					</div> */}
+					<div className={classes.search}>
+						<Search />
 					</div>
 					<div className={classes.sectionDesktop}>
-						<IconButton aria-label='show 4 new mails' color='inherit'>
+						<IconButton
+							aria-label='show 4 new mails' //color='inherit'
+						>
 							<Badge badgeContent={4} color='secondary'>
 								<MailIcon />
 							</Badge>
 						</IconButton>
-						<IconButton aria-label='show 17 new notifications' color='inherit'>
+						<IconButton
+							aria-label='show 17 new notifications' //color='inherit'
+						>
 							<Badge badgeContent={17} color='secondary'>
 								<NotificationsIcon />
 							</Badge>
@@ -155,11 +179,13 @@ export default function HeaderBar({ handleDrawerOpen, open }) {
 							aria-controls={menuId}
 							aria-haspopup='true'
 							onClick={handleProfileMenuOpen}
-							color='inherit'>
+							//color='inherit'
+						>
 							<AccountCircle />
 						</IconButton>
 						<Tooltip title='Toggle Day/Night Mode' arrow>
-							<IconButton color='inherit'>
+							<IconButton //color='inherit'
+								onClick={handleThemeChange}>
 								<Brightness4Icon />
 							</IconButton>
 						</Tooltip>
@@ -170,7 +196,8 @@ export default function HeaderBar({ handleDrawerOpen, open }) {
 							aria-controls={mobileMenuId}
 							aria-haspopup='true'
 							onClick={handleMobileMenuOpen}
-							color='inherit'>
+							//color='inherit'
+						>
 							<MoreIcon />
 						</IconButton>
 					</div>
@@ -189,11 +216,12 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	appBar: {
+		zIndex: theme.zIndex.drawer + 1,
 		transition: theme.transitions.create(['margin', 'width'], {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		background: '#343a40',
+		// background: '#343a40',
 	},
 	appBarShift: {
 		width: `calc(100% - ${drawerWidth}px)`,
@@ -205,6 +233,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
+		//marginRight: 36,
 	},
 	hide: {
 		display: 'none',

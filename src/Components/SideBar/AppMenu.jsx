@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import IconDashboard from '@material-ui/icons/Dashboard';
 import IconShoppingCart from '@material-ui/icons/ShoppingCart';
 import IconPeople from '@material-ui/icons/People';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import IconBarChart from '@material-ui/icons/BarChart';
 import IconLibraryBooks from '@material-ui/icons/LibraryBooks';
 import AppMenuItem from './AppMenuItem';
@@ -31,10 +32,12 @@ const appMenuItems = [
 			{
 				name: 'Cust - 1',
 				link: '/Page4',
+				Icon: GroupAddIcon,
 			},
 			{
 				name: 'Cust - 2',
 				link: '/Page2',
+				Icon: GroupAddIcon,
 			},
 		],
 	},
@@ -50,6 +53,8 @@ const appMenuItems = [
 		items: [
 			{
 				name: 'Level 2',
+				link: '/Page5',
+				Icon: IconLibraryBooks,
 			},
 			{
 				name: 'Level 2',

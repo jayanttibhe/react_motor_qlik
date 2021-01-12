@@ -72,12 +72,16 @@ const useStyles = makeStyles((theme) =>
 	createStyles({
 		menuItem: {},
 		menuItemIcon: {
-			color: '#97c05c',
+			//color: '#97c05c',
+			color: theme.palette.primary.light,
+			'&:hover': {
+				color: theme.palette.secondary.light,
+			},
 		},
 		linkItem: {
-			color: '#f1f1f1',
+			color: theme.palette.primary.light,
 			'&:hover': {
-				color: '#97c05c',
+				color: theme.palette.secondary.light,
 			},
 		},
 	})

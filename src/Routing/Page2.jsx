@@ -6,7 +6,7 @@ import SideBar from '../Components/SideBar/SideBar';
 const Page2 = () => {
 	return (
 		<div>
-			<h1 style={{ textAlign: 'center' }}>I am on the Page2</h1>
+			{/* <h1 style={{ textAlign: 'center' }}>I am on the Page2</h1> */}
 			<SideBar />
 		</div>
 	);
